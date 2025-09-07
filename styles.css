@@ -1,166 +1,181 @@
-/* Castillos Landscaping — Black/Gold/White brand (no olive) */
+/* Castillos Landscaping — Black/Gold/White with clear section banding */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-  --black-900: #0a0a0a;     /* page/body */
-  --black-800: #111111;     /* panels/cards */
-  --black-700: #1a1a1a;     /* borders */
-  --white: #ffffff;
-  --white-80: rgba(255,255,255,.80);
-  --white-70: rgba(255,255,255,.70);
+  /* Brand */
   --gold: #d4af37;
   --gold-2: #e0be57;
+
+  /* Neutrals for contrast (no olive) */
+  --ink-1000: #000000;  /* footer/deep */
+  --ink-950:  #0a0a0a;  /* body base */
+  --ink-900:  #0f1011;  /* darkest surface */
+  --ink-850:  #121316;  /* card bg strong */
+  --ink-800:  #15171a;  /* card bg */
+  --ink-750:  #1a1d21;  /* section band A */
+  --ink-700:  #1f2328;  /* section band B */
+  --ink-680:  #232831;  /* borders/lines */
+
+  --white: #ffffff;
+  --white-90: rgba(255,255,255,.90);
+  --white-80: rgba(255,255,255,.80);
+  --white-70: rgba(255,255,255,.70);
+
+  --line: rgba(255,255,255,.06);
+  --line-strong: rgba(255,255,255,.10);
 }
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: var(--black-900);
+  background: var(--ink-950);
   color: var(--white);
 }
 
 /* ---------------- NAV ---------------- */
 nav {
-  background: rgba(0,0,0,.9) !important;
-  border-bottom: 1px solid var(--black-700);
+  background: linear-gradient(180deg, rgba(0,0,0,.95), rgba(0,0,0,.88)) !important;
+  border-bottom: 1px solid var(--line);
   backdrop-filter: saturate(140%) blur(6px);
 }
 nav .text-2xl.font-bold { color: var(--gold) !important; }
-
-.nav-link {
-  color: var(--white-80) !important;
-  transition: color .25s ease;
-}
+.nav-link { color: var(--white-80) !important; transition: color .25s ease; }
 .nav-link:hover { color: var(--gold) !important; }
-
-/* Mobile menu */
-#mobile-menu { background: var(--black-800) !important; border-top: 1px solid var(--black-700) !important; }
+#mobile-menu { background: var(--ink-850) !important; border-top: 1px solid var(--line) !important; }
 #mobile-menu a { color: var(--white-80) !important; border-radius: .5rem; }
-#mobile-menu a:hover { background: var(--black-700); color: var(--gold) !important; }
-
+#mobile-menu a:hover { background: var(--ink-700); color: var(--gold) !important; }
 .shadow-xl { box-shadow: 0 12px 30px rgba(0,0,0,.45) !important; }
 
 /* ---------------- HERO ---------------- */
-.hero-bg {
-  /* Subtle black gradient + soft gold glow */
+.hero-bg{
+  /* Subtle gold glow → down-fades into dark; keeps hero distinct from next band */
   background:
-    radial-gradient(60% 120% at 70% 0%, rgba(212,175,55,.22) 0%, rgba(212,175,55,0) 60%),
-    linear-gradient(135deg, #000000 0%, #0c0c0c 50%, #141414 100%);
+    radial-gradient(70% 120% at 50% 0%, rgba(212,175,55,.25) 0%, rgba(212,175,55,0) 60%),
+    linear-gradient(180deg, #0a0a0a 0%, #121316 60%, #15171a 100%);
+  position: relative;
 }
 .hero-bg h1 { color: var(--white) !important; text-shadow: 0 6px 24px rgba(0,0,0,.5); }
 .hero-bg p { color: var(--white-80) !important; }
 
-/* Hero buttons (use structure already in your HTML) */
+/* Section separator AFTER hero */
+.hero-bg::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:24px;
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(255,255,255,.05));
+}
+
+/* Hero buttons */
 .hero-bg .text-center .flex button:first-child{
-  background: var(--gold) !important;
-  color: #000 !important;
-  border: none !important;
+  background: var(--gold) !important; color:#000 !important; border:none !important;
   box-shadow: 0 12px 30px rgba(212,175,55,.25);
   transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
 }
 .hero-bg .text-center .flex button:first-child:hover{
-  filter: brightness(1.05);
-  transform: translateY(-2px);
+  filter: brightness(1.05); transform: translateY(-2px);
   box-shadow: 0 18px 38px rgba(212,175,55,.32);
 }
 .hero-bg .text-center .flex button:last-child{
-  background: transparent !important;
-  color: var(--gold) !important;
-  border: 2px solid var(--gold) !important;
-  transition: all .2s ease;
+  background: transparent !important; color: var(--gold) !important;
+  border: 2px solid var(--gold) !important; transition: all .2s ease;
 }
 .hero-bg .text-center .flex button:last-child:hover{
-  background: var(--gold) !important;
-  color: #000 !important;
-  transform: translateY(-2px);
+  background: var(--gold) !important; color:#000 !important; transform: translateY(-2px);
 }
 
-/* ---------------- GENERIC HEADINGS/TEXT ---------------- */
-section h2 { color: var(--white) !important; font-weight: 800; letter-spacing: .2px; }
+/* ---------------- SECTION BANDING ---------------- */
+/* Services band = slightly lighter than hero bottom */
+#services{
+  background: var(--ink-750) !important;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* About band = alternates tone */
+#about{
+  background: var(--ink-700) !important;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Contact band = back to services tone (A/B/A rhythm) */
+#contact{
+  background: var(--ink-750) !important;
+  border-top: 1px solid var(--line);
+}
+
+/* Headings / body copy inside sections */
+section h2 { color: var(--white) !important; font-weight: 800; letter-spacing:.2px; }
 section p  { color: var(--white-80) !important; }
 
-/* ---------------- SERVICES ---------------- */
-/* Force the white section to dark to match brand */
-#services { background: var(--black-900) !important; }
-
-.service-card {
-  background: var(--black-800) !important;
-  border: 1px solid var(--black-700) !important;
+/* ---------------- SERVICE CARDS ---------------- */
+.service-card{
+  background: linear-gradient(180deg, var(--ink-800), var(--ink-850)) !important;
+  border: 1px solid var(--line-strong) !important;
   border-radius: 1rem !important;
-  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,.35);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 .service-card:hover{
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,.5);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(0,0,0,.5);
   border-color: rgba(212,175,55,.45) !important;
 }
-.service-card h3 { color: var(--white) !important; }
-.service-card p, .service-card ul { color: var(--white-80) !important; }
-/* If emojis remain, tint them gold so they feel on-brand */
-.service-card > .text-4xl { color: var(--gold); line-height: 1; }
+.service-card h3{ color: var(--white) !important; }
+.service-card p, .service-card ul{ color: var(--white-80) !important; }
+/* If you still have emojis, tint them gold so they feel intentional */
+.service-card > .text-4xl{ color: var(--gold); line-height: 1; }
 
 /* ---------------- ABOUT ---------------- */
-#about { background: var(--black-900) !important; }
-#about .text-gray-900 { color: var(--white) !important; }
-#about .text-gray-600 { color: var(--white-80) !important; }
+#about .text-gray-900{ color: var(--white) !important; }
+#about .text-gray-600{ color: var(--white-80) !important; }
+#about .text-center .text-3xl{ color: var(--gold) !important; }
 
-/* Stats */
-#about .text-center .text-3xl { color: var(--gold) !important; }
-#about .bg-green-100 {
+#about .bg-green-100{
   background: linear-gradient(180deg, rgba(212,175,55,.10), rgba(212,175,55,0)) !important;
-  border: 1px solid var(--black-700) !important;
+  border: 1px solid var(--line-strong) !important;
 }
-#about .bg-green-100 h3 { color: var(--white) !important; }
-#about .bg-green-100 ul { color: var(--white-80) !important; }
-#about .bg-green-100 .text-green-600 { color: var(--gold) !important; }
-#about .text-8xl { color: var(--gold); }
+#about .bg-green-100 h3{ color: var(--white) !important; }
+#about .bg-green-100 ul{ color: var(--white-80) !important; }
+#about .bg-green-100 .text-green-600{ color: var(--gold) !important; }
+#about .text-8xl{ color: var(--gold); }
 
 /* ---------------- CONTACT ---------------- */
-#contact { background: var(--black-900) !important; }
-#contact .text-gray-900 { color: var(--white) !important; }
-#contact .text-gray-700,
-#contact .text-gray-600 { color: var(--white-80) !important; }
+#contact .text-gray-900{ color: var(--white) !important; }
+#contact .text-gray-700, #contact .text-gray-600{ color: var(--white-80) !important; }
 
 /* Left contact card */
-#contact .bg-gray-50 {
-  background: var(--black-800) !important;
-  border: 1px solid var(--black-700) !important;
+#contact .bg-gray-50{
+  background: linear-gradient(180deg, var(--ink-800), var(--ink-850)) !important;
+  border: 1px solid var(--line-strong) !important;
 }
+
 /* Demo notice */
-#contact .bg-yellow-50 {
+#contact .bg-yellow-50{
   background: rgba(212,175,55,.10) !important;
   border-color: rgba(212,175,55,.28) !important;
 }
-#contact .text-yellow-800 { color: var(--white) !important; }
+#contact .text-yellow-800{ color: var(--white) !important; }
 
 /* Inputs */
-#contact input,
-#contact select,
-#contact textarea{
-  background: #0b0b0b !important;
+#contact input, #contact select, #contact textarea{
+  background: #0e0f10 !important;
   color: var(--white) !important;
-  border: 1px solid var(--black-700) !important;
+  border: 1px solid var(--ink-680) !important;
   border-radius: .65rem !important;
 }
-#contact input:focus,
-#contact select:focus,
-#contact textarea:focus{
+#contact input:focus, #contact select:focus, #contact textarea:focus{
   border-color: var(--gold) !important;
   box-shadow: 0 0 0 4px rgba(212,175,55,.18) !important;
 }
 
-/* Submit button (gold) */
+/* Submit button */
 #contact .bg-green-600{
-  background: var(--gold) !important;
-  color: #000 !important;
-  border: none !important;
+  background: var(--gold) !important; color:#000 !important; border:none !important;
   box-shadow: 0 12px 28px rgba(212,175,55,.22);
   transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
 }
 #contact .bg-green-600:hover{
-  filter: brightness(1.05);
-  transform: translateY(-2px);
+  filter: brightness(1.05); transform: translateY(-2px);
   box-shadow: 0 18px 36px rgba(212,175,55,.30);
 }
 
@@ -172,13 +187,16 @@ section p  { color: var(--white-80) !important; }
 #contact .bg-red-600{ background: #b91c1c !important; }
 
 /* ---------------- FOOTER ---------------- */
-footer { background: #000 !important; color: var(--white) !important; }
-footer .text-2xl.font-bold { color: var(--gold) !important; }
-footer .text-gray-400 { color: var(--white-70) !important; }
-footer a { color: var(--white-70); transition: color .2s ease; }
-footer a:hover { color: var(--gold); }
+footer{
+  background: var(--ink-1000) !important; color: var(--white) !important;
+  border-top: 1px solid var(--line);
+}
+footer .text-2xl.font-bold{ color: var(--gold) !important; }
+footer .text-gray-400{ color: var(--white-70) !important; }
+footer a{ color: var(--white-70); transition: color .2s ease; }
+footer a:hover{ color: var(--gold); }
 
-/* Footer socials (emoji or icons) */
+/* Footer socials */
 footer .flex.space-x-4 button{
   color: var(--white-70);
   transition: color .2s ease, transform .2s ease, background .2s ease;
@@ -191,12 +209,8 @@ footer .flex.space-x-4 button:hover{
 }
 
 /* ---------------- MISC ---------------- */
-.border-gray-800 { border-color: var(--black-700) !important; }
-
-/* Success toast (from JS) */
-.bg-green-100 { background: rgba(16,185,129,.15) !important; }
-.text-green-700 { color: #d1fae5 !important; }
-.border-green-400 { border-color: rgba(16,185,129,.35) !important; }
-
-/* Bullet color accent */
-ul li::marker { color: var(--gold); }
+.border-gray-800{ border-color: var(--ink-680) !important; }
+.bg-green-100{ background: rgba(16,185,129,.15) !important; }
+.text-green-700{ color: #d1fae5 !important; }
+.border-green-400{ border-color: rgba(16,185,129,.35) !important; }
+ul li::marker{ color: var(--gold); }
